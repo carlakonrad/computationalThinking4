@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Note } from '~/types/note'
 
-const props = defineProps<{ note: Note }>()
+const props = defineProps<{ note: Note, scale: number }>()
 const emit = defineEmits<{ update: [changes: Partial<Note>], delete: [] }>()
 
 const MIN_SIZE = GRID_SIZE * 4
@@ -17,7 +17,7 @@ const textarea = ref<HTMLTextAreaElement>()
 function onMoveStart(event: PointerEvent) {
   if (editing.value) return
   const { x, y } = props.note
-  startDrag(event, (dx, dy) => emit('update', { x: snap(x + dx), y: snap(y + dy) }))
+  startDrag(event, (dx, dy) => emit('update', { x: snap(x + dx / props.scale), y: snap(y + dy / props.scale) }))
 }
 
 // Resizes one axis; when dragging from the start side, the opposite edge stays fixed.
@@ -31,8 +31,8 @@ function resizeAxis(start: number, size: number, delta: number, fromStart: boole
 function onResizeStart(event: PointerEvent, corner: typeof corners[number]) {
   const { x, y, width, height } = props.note
   startDrag(event, (dx, dy) => {
-    const h = resizeAxis(x, width, dx, corner.left)
-    const v = resizeAxis(y, height, dy, corner.top)
+    const h = resizeAxis(x, width, dx / props.scale, corner.left)
+    const v = resizeAxis(y, height, dy / props.scale, corner.top)
     emit('update', { x: h.start, width: h.size, y: v.start, height: v.size })
   })
 }
