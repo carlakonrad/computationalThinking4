@@ -39,6 +39,13 @@ function onPointerMove(event: PointerEvent) {
 function onPointerUp() {
   dragging = false
 }
+
+// Converts a screen point into canvas coordinates, accounting for pan and zoom.
+function toCanvas(screenX: number, screenY: number) {
+  return { x: (screenX - offset.x) / scale.value, y: (screenY - offset.y) / scale.value }
+}
+
+defineExpose({ toCanvas })
 </script>
 
 <template>
