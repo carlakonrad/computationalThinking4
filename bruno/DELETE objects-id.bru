@@ -1,0 +1,20 @@
+meta {
+  name: DELETE objects/:id
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3001/objects/bruno-note
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 204
+}
+
+docs {
+  Erwartet: 204, das Objekt ist aus backend/data/board.json verschwunden.
+  Ein zweites Mal senden → 404, weil es das Objekt nicht mehr gibt.
+}
