@@ -24,6 +24,7 @@ function onRemove(board: Board) {
 
 <template>
   <main class="mx-auto max-w-5xl p-8">
+    <UserBar class="mb-6" />
     <div class="mb-8 flex items-center justify-between">
       <h1 class="text-2xl font-semibold">
         Boards

@@ -20,7 +20,7 @@ const pendingChanges = new Map<string, { changes: ObjectChanges; timer: ReturnTy
 // Components only read it; every change goes through one of the functions below,
 // which update the state right away and then tell the backend.
 export function useBoard() {
-  const api = $fetch.create({ baseURL: useRuntimeConfig().public.apiBase })
+  const api = $fetch.create({ baseURL: useRuntimeConfig().public.apiBase, credentials: 'include' })
   const boardId = useState<string | null>('boardId', () => null)
   const objects = useState<BoardObject[]>('objects', () => [])
 

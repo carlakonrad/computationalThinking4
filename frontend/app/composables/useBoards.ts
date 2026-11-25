@@ -3,7 +3,7 @@ import type { Board } from '~/types/board'
 // The list of boards for the overview. Every change goes through one of the functions below,
 // just like useBoard does for the objects on one board.
 export function useBoards() {
-  const api = $fetch.create({ baseURL: useRuntimeConfig().public.apiBase })
+  const api = $fetch.create({ baseURL: useRuntimeConfig().public.apiBase, credentials: 'include' })
   const boards = useState<Board[]>('boards', () => [])
 
   async function load() {
